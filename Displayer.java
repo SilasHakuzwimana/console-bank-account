@@ -15,7 +15,7 @@ public class Displayer {
         } else {
             System.out.println("No Conversion for RWF");
         }
-        currency = " RWF";
+        currency = "RWF";
         System.out.println("Deposited Amount: " + amount + " " + currency.toUpperCase());
 
         System.out.println("\n========================\n");
@@ -41,7 +41,7 @@ public class Displayer {
         } else {
             System.out.println("No Conversion for RWF");
         }
-        currency = " RWF";
+        currency = "RWF";
         System.out.println("\nAmount withdrawn: " + amount + " " + currency.toUpperCase());
         System.out.println("Remaining Balance: " + balance + " " + currency.toUpperCase());
 
