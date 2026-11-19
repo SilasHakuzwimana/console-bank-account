@@ -11,7 +11,7 @@ public class BankAccount {
         this.currency = currency;
     }
 
-    public String getAcountOwner() {
+    public String getAccountOwner() {
         return accountOwner;
     }
 
