@@ -1,14 +1,17 @@
 public class BankAccount {
     private final String accountOwner;
     private final String accountNumber;
-    private final String currency;
     private double balance;
+    private final double usdExchangeAmount = 1478.92;
 
-    public BankAccount(String accountOwner, String accountNumber, double initialBalance, String currency) {
+    public BankAccount(String accountOwner, String accountNumber, double initialBalance) {
         this.accountOwner = accountOwner;
         this.accountNumber = accountNumber;
         this.balance = initialBalance;
-        this.currency = currency;
+    }
+
+    public double convertToRWF(double usdAmount) {
+        return usdAmount * usdExchangeAmount;
     }
 
     public String getAccountOwner() {
@@ -23,7 +26,14 @@ public class BankAccount {
         return balance;
     }
 
-    public void deposit(double amount) {
+    public void deposit(double amount, String currency) {
+        if (currency.equalsIgnoreCase("USD")) {
+            amount = convertToRWF(amount);
+        }
+
+        // Keep Rwandan Francs
+        currency = "RWF";
+
         if (amount > 0) {
             balance += amount;
             System.out.println("\n====================================");
@@ -31,7 +41,7 @@ public class BankAccount {
             System.out.println("====================================\n");
             System.out.println(
                     "Account details: " + "\n\nAccount Owner: " + accountOwner + "\nAccount Number: " + accountNumber);
-            System.out.println("\nDeposited Amount: " + amount + currency);
+            System.out.println("\nDeposited Amount: " + amount + " " + currency);
 
             System.out.println("\n========================\n");
             System.out.println("Thank you for using our service!\n");
@@ -42,7 +52,14 @@ public class BankAccount {
         }
     }
 
-    public void withdraw(double amount) {
+    public void withdraw(double amount, String currency) {
+        if (currency.equalsIgnoreCase("USD")) {
+            amount = convertToRWF(amount);
+        }
+
+        // Keep Rwandan Francs
+        currency = "RWF";
+
         if (amount > 0 && amount <= balance) {
             balance -= amount;
             System.out.println("\n====================================");
@@ -50,8 +67,8 @@ public class BankAccount {
             System.out.println("====================================\n");
             System.out.println(
                     "Account details: " + "\n\nAccount Owner: " + accountOwner + "\nAccount Number: " + accountNumber);
-            System.out.println("\nAmount withdrawn: " + amount + currency);
-            System.out.println("Remaining Balance: " + balance + currency);
+            System.out.println("\nAmount withdrawn: " + amount + " " + currency);
+            System.out.println("Remaining Balance: " + balance + " " + currency);
 
             System.out.println("\n========================\n");
             System.out.println("Thank you for using our service!\n");
