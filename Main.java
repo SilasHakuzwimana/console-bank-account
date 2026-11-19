@@ -9,16 +9,18 @@ public class Main {
         String accountOwner = scanner.nextLine();
         System.out.print("Enter your account number: ");
         String accountNumber = scanner.nextLine();
-        System.out.print("Enter your currency: ");
+        System.out.print("Enter currency (RWF or USD): ");
         String currency = scanner.nextLine();
+        System.out.print("Enter current exchange rate: ");
+        double usdExhangeRateAmount = scanner.nextDouble();
         System.out.print("Enter your amount to deposit: ");
         double depositAmount = scanner.nextDouble();
         System.out.print("Enter your amount to withdraw: ");
         double withdrawAmount = scanner.nextDouble();
 
         BankAccount account = new BankAccount(accountOwner, accountNumber, 0.0);
-        account.deposit(depositAmount, currency);
-        account.withdraw(withdrawAmount, currency);
+        account.deposit(depositAmount, currency, usdExhangeRateAmount);
+        account.withdraw(withdrawAmount, currency, usdExhangeRateAmount);
 
         scanner.close();
     }

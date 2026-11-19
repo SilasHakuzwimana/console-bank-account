@@ -1,8 +1,10 @@
 public class BankAccount {
+    // Bring in displayer class
+    Displayer display = new Displayer();
+
     private final String accountOwner;
     private final String accountNumber;
     private double balance;
-    private final double usdExchangeAmount = 1478.92;
 
     public BankAccount(String accountOwner, String accountNumber, double initialBalance) {
         this.accountOwner = accountOwner;
@@ -10,8 +12,8 @@ public class BankAccount {
         this.balance = initialBalance;
     }
 
-    public double convertToRWF(double usdAmount) {
-        return usdAmount * usdExchangeAmount;
+    public double convertToRWF(double usdAmount, double usdExhangeRateAmount) {
+        return usdAmount * usdExhangeRateAmount;
     }
 
     public String getAccountOwner() {
@@ -26,54 +28,35 @@ public class BankAccount {
         return balance;
     }
 
-    public void deposit(double amount, String currency) {
+    public void deposit(double amount, String currency, double usdExhangeRateAmount) {
         if (currency.equalsIgnoreCase("USD")) {
-            amount = convertToRWF(amount);
+            amount = convertToRWF(amount, usdExhangeRateAmount);
         }
 
         // Keep Rwandan Francs
-        currency = "RWF";
+        // currency = "RWF";
 
         if (amount > 0) {
             balance += amount;
-            System.out.println("\n====================================");
-            System.out.println("|| Console Bank Account - Deposit ||");
-            System.out.println("====================================\n");
-            System.out.println(
-                    "Account details: " + "\n\nAccount Owner: " + accountOwner + "\nAccount Number: " + accountNumber);
-            System.out.println("\nDeposited Amount: " + amount + " " + currency);
-
-            System.out.println("\n========================\n");
-            System.out.println("Thank you for using our service!\n");
-            System.out.println("The Console Bank Account Team");
-            System.out.println("\n========================\n");
+            display.displayDeposit(currency, accountOwner,
+                    amount, usdExhangeRateAmount, accountNumber);
         } else {
             System.out.println("Deposit amount must be positive.");
         }
     }
 
-    public void withdraw(double amount, String currency) {
+    public void withdraw(double amount, String currency, double usdExhangeRateAmount) {
         if (currency.equalsIgnoreCase("USD")) {
-            amount = convertToRWF(amount);
+            amount = convertToRWF(amount, usdExhangeRateAmount);
         }
 
         // Keep Rwandan Francs
-        currency = "RWF";
+        // currency = "RWF";
 
         if (amount > 0 && amount <= balance) {
             balance -= amount;
-            System.out.println("\n====================================");
-            System.out.println("|| Console Bank Account - Withdraw ||");
-            System.out.println("====================================\n");
-            System.out.println(
-                    "Account details: " + "\n\nAccount Owner: " + accountOwner + "\nAccount Number: " + accountNumber);
-            System.out.println("\nAmount withdrawn: " + amount + " " + currency);
-            System.out.println("Remaining Balance: " + balance + " " + currency);
-
-            System.out.println("\n========================\n");
-            System.out.println("Thank you for using our service!\n");
-            System.out.println("The Console Bank Account Team");
-            System.out.println("\n========================\n");
+            display.displayWithdrawal(currency, accountOwner,
+                    amount, balance, usdExhangeRateAmount, accountNumber);
 
         } else {
             System.out.println("Invalid withdrawal amount.");
