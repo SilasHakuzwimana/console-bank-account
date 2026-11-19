@@ -1,100 +1,109 @@
-## Console Bank Account
+## Console Bank Account (USD <-> RWF)
 
-A simple Java console-based bank account application demonstrating object-oriented programming principles — encapsulation, immutability, and input validation.
+A simple Java console-based bank account application demonstrating object-oriented programming principles — encapsulation, immutability, and input validation — with **interactive user input** and **USD → RWF currency conversion**.
 
 ## 📋 Overview
 
-BankAccount models a basic bank account with:
+`BankAccount` models a basic bank account with:
 
-Immutable identity fields — account owner, account number, and currency (set once at construction)
-Mutable balance — updated through validated deposit and withdraw operations
-Console receipts — each successful transaction prints a formatted summary
+- **Immutable identity fields** — account owner and account number (set once at construction)
+- **Mutable balance** — always stored in **RWF** (Rwandan Francs)
+- **Automatic currency conversion** — USD deposits/withdrawals are converted to RWF
+- **Console receipts** — each successful transaction prints a formatted summary
 
 ### ✨ Features
 
-## Feature	Description
+## Feature Description
 
-🔒 Encapsulation	All fields are private; access is controlled via getters and methods
-🧱 Immutability	accountOwner, accountNumber, and currency are final
-✅ Validation	Deposits require a positive amount; withdrawals require a positive amount and sufficient balance
-🖨️ Receipts	Successful transactions print a formatted console receipt
+| Feature                | Description                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| 🔒 Encapsulation       | All fields are `private`; access controlled via getters and methods                                  |
+| 🧱 Immutability        | `accountOwner` and `accountNumber` are `final`                                                       |
+| 💱 Currency Conversion | USD amounts are converted to RWF using a fixed exchange rate                                         |
+| ⌨️ Interactive Input   | `Main` prompts the user for all account details via `Scanner`                                        |
+| ✅ Validation          | Deposits require a positive amount; withdrawals require a positive amount **and** sufficient balance |
+| 🖨️ Receipts            | Successful transactions print a formatted console receipt                                            |
 
 ## 🗂️ Class Structure
 
 ```bash
 BankAccount
 ├── Fields
-│   ├── accountOwner   : String  (final)
-│   ├── accountNumber  : String  (final)
-│   ├── currency       : String  (final)
-│   └── balance        : double  (mutable)
+│ ├── accountOwner : String (final)
+│ ├── accountNumber : String (final)
+│ ├── balance : double (mutable, in RWF)
+│ └── usdExchangeAmount : double (final = 1478.92)
 │
 ├── Constructor
-│   └── BankAccount(accountOwner, accountNumber, initialBalance, currency)
+│ └── BankAccount(accountOwner, accountNumber, initialBalance)
 │
 ├── Getters
-│   ├── getAcountOwner()
-│   ├── getAccountNumber()
-│   └── getBalance()
+│ ├── getAccountOwner()
+│ ├── getAccountNumber()
+│ └── getBalance()
 │
 └── Operations
-    ├── deposit(double amount)
-    └── withdraw(double amount)
+├── convertToRWF(double usdAmount)
+├── deposit(double amount, String currency)
+└── withdraw(double amount, String currency)
 ```
+
 ### 🚀 Getting Started
 
 ## Prerequisites
 
-Java JDK 21 installed
-A terminal or IDE (IntelliJ, Eclipse, VS Code)
+- **Java JDK 21+** installed
+- A terminal or IDE (IntelliJ, Eclipse, VS Code)
 
 ## Compile
 
 ```bash
-javac BankAccount.java
+javac BankAccount.java Main.java
 ```
 
-## Run (example usage)
-
-Create a small Main.java to try it out:
-
-```java
-public class Main {
-    public static void main(String[] args) {
-        BankAccount account = new BankAccount(
-            "Silas",
-            "123456789",
-            0.0,
-            " RWF"
-        );
-
-        account.deposit(5000);
-        account.withdraw(200);
-    }
-}
-```
-Then:
+## Run
 
 ```bash
-javac Main.java
 java Main
 ```
 
-### 📤 Example Output
+## Example Interaction
 
-## Deposit
+```bash
+Enter your account owner name: Silas
+Enter your account number: ACC-64775
+Enter your currency: USD
+Enter your amount to deposit: 5
+Enter your amount to withdraw: 2
+```
+
+### 💱 Currency Conversion
+
+All balances are stored internally in **RWF**. When a transaction is made in **USD**, it is converted using:
+
+```bash
+1 USD = 1478.92 RWF
+```
+
+Input Currency Behavior
+**USD** (case-insensitive) Converted to RWF before applying
+Any other value Treated as RWF (no conversion)
+
+## 📤 Example Output
+
+Deposit (USD input, converted to RWF)
 
 ```bash
 ====================================
 || Console Bank Account - Deposit ||
 ====================================
 
-Account details: 
+Account details:
 
 Account Owner: Silas
-Account Number: 123456789
+Account Number: ACC-376467
 
-Deposited Amount: 5000.0 RWF
+Deposited Amount: 7394.6 RWF
 
 ========================
 
@@ -112,13 +121,13 @@ The Console Bank Account Team
 || Console Bank Account - Withdraw ||
 ====================================
 
-Account details: 
+Account details:
 
 Account Owner: Silas
-Account Number: 123456789
+Account Number: ACC-376467
 
-Amount withdrawn: 200.0 RWF
-Remaining Balance: 4800.0 RWF
+Amount withdrawn: 2957.84 RWF
+Remaining Balance: 4436.76 RWF
 
 ========================
 
@@ -131,27 +140,29 @@ The Console Bank Account Team
 
 ## ⚠️ Validation Rules
 
-Operation	Rule	On Failure
-deposit	amount > 0	Prints "Deposit amount must be positive."
-withdraw	amount > 0 && amount <= balance	Prints "Invalid withdrawal amount."
+Operation Rule On Failure
+deposit amount > 0 (after conversion) Prints "Deposit amount must be positive."
+withdraw amount > 0 && amount <= balance Prints "Invalid withdrawal amount."
 
 ## 🔮 Possible Improvements
 
-Ideas for extending this project:
-
-□ Fix typo: getAcountOwner() → getAccountOwner()
+☑ Fix typo: getAcountOwner() → getAccountOwner()
+☑ Support USD → RWF conversion
+□ Make exchange rate configurable (not hardcoded)
 □ Add a transfer(BankAccount target, double amount) method
 □ Add transaction history (List<Transaction>)
 □ Use BigDecimal instead of double for currency precision
 □ Add unit tests (JUnit)
 □ Separate receipt printing from business logic (Single Responsibility Principle)
-□ Support multiple currencies with conversion
+□ Support multiple currencies beyond USD
+□ Add trailing newline to Main.java
 
 ## 🛠️ Tech Stack
 
-Language: Java
+Language: Java (JDK 21)
 Paradigm: Object-Oriented Programming
 Interface: Console (CLI)
+Input: java.util.Scanner
 
 ## 📄 License
 
