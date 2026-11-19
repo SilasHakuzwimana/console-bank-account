@@ -12,8 +12,8 @@ public class BankAccount {
         this.balance = initialBalance;
     }
 
-    public double convertToRWF(double usdAmount, double usdExhangeRateAmount) {
-        return usdAmount * usdExhangeRateAmount;
+    public double convertToRWF(double usdAmount, double usdExchangeRateAmount) {
+        return usdAmount * usdExchangeRateAmount;
     }
 
     public String getAccountOwner() {
@@ -28,9 +28,9 @@ public class BankAccount {
         return balance;
     }
 
-    public void deposit(double amount, String currency, double usdExhangeRateAmount) {
+    public void deposit(double amount, String currency, double usdExchangeRateAmount) {
         if (currency.equalsIgnoreCase("USD")) {
-            amount = convertToRWF(amount, usdExhangeRateAmount);
+            amount = convertToRWF(amount, usdExchangeRateAmount);
         }
 
         // Keep Rwandan Francs
@@ -39,15 +39,15 @@ public class BankAccount {
         if (amount > 0) {
             balance += amount;
             display.displayDeposit(currency, accountOwner,
-                    amount, usdExhangeRateAmount, accountNumber);
+                    amount, usdExchangeRateAmount, accountNumber);
         } else {
             System.out.println("Deposit amount must be positive.");
         }
     }
 
-    public void withdraw(double amount, String currency, double usdExhangeRateAmount) {
+    public void withdraw(double amount, String currency, double usdExchangeRateAmount) {
         if (currency.equalsIgnoreCase("USD")) {
-            amount = convertToRWF(amount, usdExhangeRateAmount);
+            amount = convertToRWF(amount, usdExchangeRateAmount);
         }
 
         // Keep Rwandan Francs
@@ -56,7 +56,7 @@ public class BankAccount {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
             display.displayWithdrawal(currency, accountOwner,
-                    amount, balance, usdExhangeRateAmount, accountNumber);
+                    amount, balance, usdExchangeRateAmount, accountNumber);
 
         } else {
             System.out.println("Invalid withdrawal amount.");

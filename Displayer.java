@@ -1,6 +1,6 @@
 
 public class Displayer {
-    public void displayDeposit(String currency, String accountOwner, double amount, double usdExhangeRateAmount,
+    public void displayDeposit(String currency, String accountOwner, double amount, double usdExchangeRateAmount,
             String accountNumber) {
         System.out.println("\n====================================");
         System.out.println("|| Console Bank Account - Deposit ||");
@@ -8,13 +8,14 @@ public class Displayer {
         System.out.println(
                 "Account details: " + "\n\nAccount Owner: " + accountOwner + "\nAccount Number: " + accountNumber);
         System.out.println("\nCurrency: " + currency.toUpperCase());
-        System.out.println("\nExchange Rate: " + usdExhangeRateAmount);
+        System.out.println("\nExchange Rate: " + usdExchangeRateAmount);
         if (currency.equalsIgnoreCase("USD")) {
             System.out.println(
-                    "USD Amount converted: " + (amount / usdExhangeRateAmount) + " " + currency.toUpperCase());
+                    "USD Amount converted: " + (amount / usdExchangeRateAmount) + " " + currency.toUpperCase());
         } else {
             System.out.println("No Conversion for RWF");
         }
+        currency = " RWF";
         System.out.println("Deposited Amount: " + amount + " " + currency.toUpperCase());
 
         System.out.println("\n========================\n");
@@ -24,7 +25,8 @@ public class Displayer {
 
     }
 
-    public void displayWithdrawal(String currency, String accountOwner, double amount, double balance, double usdExhangeRateAmount,
+    public void displayWithdrawal(String currency, String accountOwner, double amount, double balance,
+            double usdExchangeRateAmount,
             String accountNumber) {
         System.out.println("\n=====================================");
         System.out.println("|| Console Bank Account - Withdrawal ||");
@@ -32,13 +34,14 @@ public class Displayer {
         System.out.println(
                 "Account details: " + "\n\nAccount Owner: " + accountOwner + "\nAccount Number: " + accountNumber);
         System.out.println("\nCurrency: " + currency.toUpperCase());
-        System.out.println("\nExchange Rate: " + usdExhangeRateAmount);
+        System.out.println("\nExchange Rate: " + usdExchangeRateAmount);
         if (currency.equalsIgnoreCase("USD")) {
             System.out.println(
-                    "USD Amount converted: " + (amount / usdExhangeRateAmount) + " " + currency.toUpperCase());
+                    "USD Amount converted: " + (amount / usdExchangeRateAmount) + " " + currency.toUpperCase());
         } else {
             System.out.println("No Conversion for RWF");
         }
+        currency = " RWF";
         System.out.println("\nAmount withdrawn: " + amount + " " + currency.toUpperCase());
         System.out.println("Remaining Balance: " + balance + " " + currency.toUpperCase());
 
